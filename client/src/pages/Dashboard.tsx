@@ -4,6 +4,7 @@ import { useState } from "react";
 // Components
 import Header from "@/components/layouts/Header";
 import SectionHeader from "@/components/shared/SectionHeader";
+import IndicatorsContainer from "@/components/features/indicators/components";
 import UserFormDialog from "@/components/features/users/components/UserForm";
 
 // Types
@@ -14,7 +15,13 @@ import type { UserFormData } from "@/components/features/users/schemas/userForm.
 import { useUserManagement } from "@/hooks/useUserManagement";
 
 const Dashboard = () => {
-  const { createUser, updateUser } = useUserManagement();
+  const {
+    createUser,
+    updateUser,
+
+    indicators,
+    loadingIndicators,
+  } = useUserManagement();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<"create" | "edit">("create");
@@ -40,6 +47,13 @@ const Dashboard = () => {
             setIsDialogOpen(true);
           }}
         />
+
+        <div className="flex flex-col gap-6">
+          <IndicatorsContainer
+            indicators={indicators}
+            loadingIndicators={loadingIndicators}
+          />
+        </div>
       </div>
 
       <UserFormDialog
