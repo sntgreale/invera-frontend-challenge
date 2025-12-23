@@ -6,6 +6,7 @@ import Header from "@/components/layouts/Header";
 import SectionHeader from "@/components/shared/SectionHeader";
 import IndicatorsContainer from "@/components/features/indicators/components";
 import UserFormDialog from "@/components/features/users/components/UserForm";
+import StatisticsContainer from "@/components/features/statistics/components";
 
 // Types
 import type { User } from "@/components/features/users/types/user.types";
@@ -21,6 +22,9 @@ const Dashboard = () => {
 
     indicators,
     loadingIndicators,
+
+    stats,
+    loadingStats,
   } = useUserManagement();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -52,6 +56,12 @@ const Dashboard = () => {
           <IndicatorsContainer
             indicators={indicators}
             loadingIndicators={loadingIndicators}
+          />
+
+          <StatisticsContainer
+            totalUsers={stats?.totalUsers ?? 0}
+            distributionUsers={stats?.distribution ?? []}
+            loadingStatistics={loadingStats}
           />
         </div>
       </div>

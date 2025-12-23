@@ -7,16 +7,21 @@ import type { User } from "@/services/types/user.types";
 import type { UserFormData } from "@/components/features/users/schemas/userForm.schema";
 import type { ApiResponse } from "@/services/types/http.types";
 import type { Indicators } from "@/services/types/indicators.types";
+import type { UserStatistics } from "@/services/types/statistics.types";
 
 // Services
 import { userService } from "@/services/user.service";
 import { indicatorsService } from "@/services/indicators.service";
+import { statisticsService } from "@/services/statistics.service";
 
 export function useUserManagement() {
   const loadInitialStatsRef = useRef(false);
 
   const [indicators, setIndicators] = useState<Indicators>({});
   const [loadingIndicators, setLoadingIndicators] = useState<boolean>(false);
+
+  const [stats, setStats] = useState<UserStatistics | null>(null);
+  const [loadingStats, setLoadingStats] = useState<boolean>(false);
 
   // Function to create user
   const createUser = async (
@@ -54,11 +59,21 @@ export function useUserManagement() {
   // Get statistics & indicators
   const loadStats = useCallback(async () => {
     setLoadingIndicators(true);
+    setLoadingStats(true);
 
     try {
-      const [ind] = await Promise.allSettled([
+      const [st, ind] = await Promise.allSettled([
+        statisticsService.getStatistics(),
         indicatorsService.getIndicators(),
       ]);
+
+      // Handle statistics
+      if (st.status === "fulfilled" && st.value.success && st.value.data) {
+        setStats(st.value.data);
+      } else {
+        toast.error("Error loading statistics");
+        setStats(null);
+      }
 
       // Handle indicators
       if (ind.status === "fulfilled" && ind.value.success && ind.value.data) {
@@ -69,9 +84,11 @@ export function useUserManagement() {
       }
     } catch {
       toast.error("Error loading dashboard data");
+      setStats(null);
       setIndicators({});
     } finally {
       setLoadingIndicators(false);
+      setLoadingStats(false);
     }
   }, []);
 
@@ -88,5 +105,8 @@ export function useUserManagement() {
 
     indicators,
     loadingIndicators,
+
+    stats,
+    loadingStats,
   };
 }
