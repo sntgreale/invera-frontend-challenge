@@ -4,7 +4,7 @@ import type { ApiResponse } from "./types/http.types";
 import type { UserQueryParams } from "./types/query.types";
 import type { UserFormData } from "@/components/features/users/schemas/userForm.schema";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const userService = {
   async getUsers(
