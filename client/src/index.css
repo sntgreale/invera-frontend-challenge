@@ -1,0 +1,120 @@
+/* Tailwind core */
+@import "tailwindcss";
+
+/* Tailwind v4 dark mode selector */
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================= */
+/* THEME COLORS (Permite bg-background, etc) */
+/* ========================================= */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: #7b99ff;
+  --color-primary-foreground: #ffffff;
+
+  --color-background-alt: var(--background-alt);
+  --color-text-accent: var(--text-accent);
+
+  --color-background-alt-2: var(--background-alt-2);
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+}
+
+@layer base {
+  /* ========================================= */
+  /* LIGHT THEME (DEFAULT)                     */
+  /* ========================================= */
+  :root {
+    --background: 0 0% 100%; /* #ffffff */
+    --foreground: 240 10% 3.9%; /* #0a0a0a */
+
+    --primary: 240 5.9% 10%; /* #111111 */
+    --primary-foreground: 0 0% 98%; /* #fafafa */
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+
+    --radius: 0.5rem;
+
+    --background-alt: #a3bef3;
+    --text-accent: #4871f7;
+
+    --background-alt-2: #ffffff;
+  }
+
+  /* ========================================= */
+  /* DARK THEME (TU PALETA PERSONALIZADA)      */
+  /* ========================================= */
+  .dark {
+    --background: 0 0% 13%; /* #212121 */
+    --foreground: 0 0% 100%; /* #ffffff */
+
+    --primary: 231 100% 74%; /* #7b99ff */
+    --primary-foreground: 0 0% 100%; /* white */
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 37%;
+    --input: 0 0% 37%;
+    --ring: 231 100% 74%; /* mismo tono que primary */
+
+    --background-alt: #373c50;
+    --text-accent: #7b99ff;
+
+    --background-alt-2: #1a1a1a;
+  }
+}
+
+/* ========================================= */
+/* BASE ELEMENT STYLES                       */
+/* ========================================= */
+@layer base {
+  * {
+    @apply border-border;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .dark .dialog-content,
+  .dialog-content {
+    @apply bg-background;
+  }
+}
